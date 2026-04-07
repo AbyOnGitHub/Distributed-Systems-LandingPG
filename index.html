@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributed Systems | Interactive Guide</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">DFS Guide.</div>
+        <ul class="nav-links">
+            <li><a href="#definition">Definition</a></li>
+            <li><a href="#characteristics">Characteristics</a></li>
+            <li><a href="#advantages">Advantages</a></li>
+            <li><a href="#naming">Naming & Transparency</a></li>
+            <li><a href="#implementation">Implementation</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="definition">
+        <div class="hero-content">
+            <h1>Distributed Systems & DFS</h1>
+            <p style="color:var(--accent); font-weight:600; font-size:1.1rem; margin-top:-1rem; margin-bottom:1.5rem;">by- Abedan Biswal and Atharv Ghorpade</p>
+            <div class="quote">
+                "A Distributed System is a collection of independent computers that appears to its users as a single coherent system." <br>— Andrew Tanenbaum
+            </div>
+            <p><strong>Introduction to Distributed File Systems (DFS):</strong><br>
+            A DFS is a file system that allows files to be stored across multiple machines (nodes) in a network, while presenting them to users as if they exist on a single, unified system. Think of it like Google Drive — your files are stored across hundreds of servers, but you see them in one place.</p>
+        </div>
+        <div class="hero-graphic">
+            <div class="node node-1"></div>
+            <div class="node node-2"></div>
+            <div class="node node-3"></div>
+            <div class="node node-4"></div>
+            <svg class="connections" width="100%" height="100%"></svg>
+        </div>
+    </header>
+
+    <section class="section dark-bg" id="characteristics">
+        <h2 class="section-title">Characteristics</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Concurrency</h3>
+                <p>Multiple users/processes access resources simultaneously.</p>
+            </div>
+            <div class="card">
+                <h3>No shared clock</h3>
+                <p>Nodes have independent clocks; synchronization is hard.</p>
+            </div>
+            <div class="card">
+                <h3>No shared memory</h3>
+                <p>Nodes communicate only via messages over a network.</p>
+            </div>
+            <div class="card">
+                <h3>Fault Tolerance</h3>
+                <p>System continues working despite partial failures.</p>
+            </div>
+            <div class="card">
+                <h3>Scalability</h3>
+                <p>Can grow by adding more nodes without redesign.</p>
+            </div>
+            <div class="card">
+                <h3>Openness</h3>
+                <p>Follows standard protocols; components can be replaced.</p>
+            </div>
+            <div class="card" style="grid-column: 1 / -1;">
+                <h3>Heterogeneity</h3>
+                <p>Works across different OS, hardware, and networks.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="advantages">
+        <h2 class="section-title">Advantages</h2>
+        <div class="grid architecture-grid">
+            <div class="card alt">
+                <h3>Resource Sharing & Scalability</h3>
+                <p>Files, printers, and databases are shared across machines. Add nodes to handle more load easily.</p>
+            </div>
+            <div class="card alt">
+                <h3>Performance & Cost Efficiency</h3>
+                <p>Parallel access and local caching speed things up. Commodity hardware is cheaper than one giant machine.</p>
+            </div>
+            <div class="card alt">
+                <h3>Geographic Distribution & Transparency</h3>
+                <p>Users in different locations access the same data. Complexity is hidden; users get a simple experience.</p>
+            </div>
+        </div>
+
+        <!-- Interactive Simulation: Fault Tolerance -->
+        <div class="simulation-container">
+            <h3>Interactive Simulation: Replication & Fault Tolerance</h3>
+            <p>Click a server node below to simulate a hardware failure. See how the system continues to serve data from replicas.</p>
+            <div class="sim-stage" id="ft-sim">
+                <div class="client" id="ft-client">Client Request</div>
+                <div class="sim-servers">
+                    <div class="sim-server active" data-id="1">Server A (Replica 1)</div>
+                    <div class="sim-server active" data-id="2">Server B (Replica 2)</div>
+                    <div class="sim-server active" data-id="3">Server C (Replica 3)</div>
+                </div>
+                <button class="btn-primary" id="ft-request-btn">Request Data</button>
+                <div class="sim-log" id="ft-log">System running normally. 3 replicas available.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section dark-bg" id="naming">
+        <h2 class="section-title">Naming & Transparency</h2>
+        <div class="content-block">
+            <h3>What is Naming?</h3>
+            <p>Naming is the mechanism by which resources (files, nodes, services) in a distributed system are identified and located.</p>
+            
+            <h4>Naming Structure</h4>
+            <table class="data-table">
+                <tr><th>Layer</th><th>Description</th><th>Example</th></tr>
+                <tr><td>Low-level names</td><td>Machine-level identifiers</td><td>inode 4821</td></tr>
+                <tr><td>Mid-level names</td><td>Human-readable identifiers</td><td>/home/user/file.txt</td></tr>
+                <tr><td>High-level names</td><td>User-friendly, symbolic names</td><td>www.example.com</td></tr>
+            </table>
+
+            <h4 style="margin-top:2rem;">Naming Schemas</h4>
+            <div class="grid">
+                <div class="card">
+                    <h4>1. Flat Naming</h4>
+                    <p>Unstructured strings with no hierarchy. Simple but hard to scale (e.g., MAC addresses).</p>
+                </div>
+                <div class="card">
+                    <h4>2. Structured Naming</h4>
+                    <p>Organized in a tree-like hierarchy. Easy to scale (e.g., DNS, Unix file paths).</p>
+                </div>
+                <div class="card">
+                    <h4>3. Attribute-Based</h4>
+                    <p>Resources identified by properties rather than a fixed name (e.g., LDAP searches).</p>
+                </div>
+            </div>
+
+            <h4 style="margin-top:3rem;">Transparency</h4>
+            <p>Hiding the complexity of distribution from users and applications.</p>
+            <table class="data-table">
+                <tr><th>Type</th><th>Meaning</th></tr>
+                <tr><td>Access Transparency</td><td>Local and remote resources accessed the same way</td></tr>
+                <tr><td>Location Transparency</td><td>You don't need to know where a file physically lives</td></tr>
+                <tr><td>Replication Transparency</td><td>Multiple copies exist, but you see just one</td></tr>
+                <tr><td>Failure Transparency</td><td>System hides crashes and recovers silently</td></tr>
+                <tr><td>Migration Transparency</td><td>Files can move between servers without user knowing</td></tr>
+            </table>
+
+            <!-- Interactive Simulation: Location Transparency -->
+            <div class="simulation-container" style="margin-top:2.5rem;">
+                <h3>Interactive Simulation: Location & Name Mapping</h3>
+                <p>Observe how a Name Server maps a logical path to a physical block, and how the physical location can change without affecting the logical path (Migration Transparency).</p>
+                
+                <div class="sim-stage" id="naming-sim">
+                    <div style="display:flex; width:100%; gap:1.5rem; justify-content:center; align-items:stretch; flex-wrap:wrap;">
+                        <!-- Client Side -->
+                        <div style="flex:1; min-width:250px; background:var(--bg-dark); padding:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+                            <h4 style="margin-bottom:0.8rem;">Client</h4>
+                            <p style="font-size:0.9rem; margin-bottom:0.5rem; color:var(--text-secondary);">Logical File Path</p>
+                            <input type="text" id="logical-path-input" value="/home/user/document.pdf" readonly style="width:100%; padding:0.5rem; background:var(--bg-darker); border:1px solid var(--accent); color:var(--text-primary); border-radius:4px; font-family:'JetBrains Mono', monospace;">
+                            <div style="display:flex; gap:0.5rem; margin-top:1rem;">
+                                <button class="btn-primary" id="ns-fetch-btn" style="padding:0.5rem 1rem; font-size:0.9rem; flex:1;">Fetch File</button>
+                                <button class="btn-primary" id="ns-migrate-btn" style="padding:0.5rem 1rem; font-size:0.9rem; background:var(--error); flex:1;">Migrate File</button>
+                            </div>
+                        </div>
+
+                        <!-- Name Server -->
+                        <div style="flex:1; min-width:200px; background:var(--card-bg); padding:1rem; border-radius:8px; border:1px dashed var(--accent);">
+                            <h4 style="margin-bottom:0.8rem; color:var(--accent);">Directory Service</h4>
+                            <div id="ns-map-table" style="font-family:'JetBrains Mono'; font-size:0.85rem; background:#000; padding:1rem; border-radius:4px; color:var(--text-secondary);">
+                                <div><span style="color:#fff;">/home/user/document.pdf</span> <br>↳ <span id="physical-target" style="color:var(--success);">Server Node 1</span></div>
+                                <div style="margin-top:0.8rem; opacity:0.5;">/shared/data/db.sqlite <br>↳ Server Node 2</div>
+                            </div>
+                        </div>
+
+                        <!-- Data Nodes -->
+                        <div style="flex:1; min-width:180px; display:flex; flex-direction:column; gap:0.5rem;">
+                            <div class="sim-server" id="ns-node-1" style="flex:1; background:rgba(16, 185, 129, 0.2); border-color:var(--success);">Server Node 1 <br><small>Has File</small></div>
+                            <div class="sim-server" id="ns-node-2" style="flex:1;">Server Node 2 <br><small>Empty</small></div>
+                        </div>
+                    </div>
+                    <div class="sim-log" id="ns-log">Waiting for action... Data currently resides on Server Node 1.</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section" id="implementation">
+        <h2 class="section-title">Implementation Techniques</h2>
+        
+        <div class="grid architecture-grid" style="margin-bottom: 3rem;">
+            <div class="card alt">
+                <h3>1. RPC & Communication</h3>
+                <p>Client calls a function that executes remotely (RPC). Nodes communicate via protocols like NFS, SMB, or HDFS protocol.</p>
+            </div>
+            <div class="card alt">
+                <h3>2. Partitioning & Caching</h3>
+                <p>Data is split across nodes (Sharding). Files are copied locally on the client to reduce network calls.</p>
+            </div>
+            <div class="card alt">
+                <h3>3. Consistency & Consensus</h3>
+                <p>Algorithms like Paxos or Raft ensure nodes agree on a single truth. Consistency models dictate how versions are synced.</p>
+            </div>
+            <div class="card alt">
+                <h3>4. Naming & Location</h3>
+                <p>A Name Server or Metadata Server maps file names directly to physical block locations.</p>
+            </div>
+            <div class="card alt">
+                <h3>5. Security & Fault Handling</h3>
+                <p>Heartbeats signal nodes are alive. Security handles Authentication, Authorization, and Encryption.</p>
+            </div>
+            <div class="card alt">
+                <h3>6. Consistent Hashing</h3>
+                <p>Efficiently maps data to nodes; minimizes reshuffling when nodes are added or removed.</p>
+            </div>
+        </div>
+
+        <!-- Interactive Simulation: Caching -->
+        <div class="simulation-container">
+            <h3>Interactive Simulation: Caching Mechanism</h3>
+            <p>Fetching from the network takes time. See how caching improves performance for subsequent requests.</p>
+            <div class="sim-stage" id="cache-sim">
+                <div class="network-path">
+                    <div class="client-node">Client Browser<br><small id="cache-status" style="color:red">Cache Empty</small></div>
+                    <div class="packet" id="cache-packet"></div>
+                    <div class="server-node">Remote Server<br><small>DB</small></div>
+                </div>
+                <button class="btn-primary" id="cache-request-btn">Request File</button>
+                <div class="sim-log" id="cache-log">Waiting for request...</div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 4rem; text-align:center;">Real-World Architecture Simulators</h3>
+        <div class="simulation-container" style="margin-top: 1.5rem;">
+            <div style="display:flex; justify-content:center; gap:1rem; margin-bottom:2rem; flex-wrap:wrap;">
+                <button class="btn-primary sim-tab-btn" data-target="stage-hdfs" style="background:var(--accent-hover);">HDFS (Hadoop)</button>
+                <button class="btn-primary sim-tab-btn" data-target="stage-nfs" style="background:var(--bg-dark);">NFS (Unix)</button>
+                <button class="btn-primary sim-tab-btn" data-target="stage-s3" style="background:var(--bg-dark);">Amazon S3</button>
+            </div>
+            
+            <!-- HDFS SIM -->
+            <div class="sim-stage sim-stage-panel" id="stage-hdfs">
+                <h4>HDFS: Block Partitioning & Replication</h4>
+                <p style="font-size:0.9rem; color:var(--text-secondary); max-width:800px; margin-bottom:1.5rem; text-align:left;">Hadoop Distributed File System (HDFS) is designed for storing massive datasets across commodity hardware. It works by breaking large files down into standardized blocks (typically 128MB). These blocks are scattered across multiple "DataNodes" and replicated (usually 3 times) to ensure fault tolerance. This architecture allows frameworks like Spark to process chunks of a file in parallel across many machines.</p>
+                <button class="btn-primary" id="btn-hdfs-upload" style="margin-bottom:1rem; font-size:0.8rem; padding:0.4rem 1rem;">Upload 500MB File</button>
+                <div style="display:flex; gap:1rem; width:100%; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+                    <div id="hdfs-file" style="width:100px; height:120px; border:2px dashed var(--text-secondary); background:var(--bg-dark); display:flex; align-items:center; justify-content:center; flex-direction:column; transition:0.3s; border-radius:4px;">File<br><small>500MB</small></div>
+                    <div id="hdfs-blocks" style="display:flex; gap:0.5rem; flex-wrap:wrap; width:100px; opacity:0; transition:opacity 0.3s;">
+                        <div style="width:45%; aspect-ratio:1; background:var(--accent); font-size:0.7rem; display:flex; align-items:center; justify-content:center; border-radius:2px; color:#000; font-weight:bold;">B1</div>
+                        <div style="width:45%; aspect-ratio:1; background:var(--accent); font-size:0.7rem; display:flex; align-items:center; justify-content:center; border-radius:2px; color:#000; font-weight:bold;">B2</div>
+                        <div style="width:45%; aspect-ratio:1; background:var(--accent); font-size:0.7rem; display:flex; align-items:center; justify-content:center; border-radius:2px; color:#000; font-weight:bold;">B3</div>
+                        <div style="width:45%; aspect-ratio:1; background:var(--accent); font-size:0.7rem; display:flex; align-items:center; justify-content:center; border-radius:2px; color:#000; font-weight:bold;">B4</div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:0.5rem; min-width:150px;">
+                        <div class="sim-server" style="text-align:left;">DataNode 1 <br><small id="hdfs-dn1-log" style="color:var(--text-secondary);">Ready</small></div>
+                        <div class="sim-server" style="text-align:left;">DataNode 2 <br><small id="hdfs-dn2-log" style="color:var(--text-secondary);">Ready</small></div>
+                        <div class="sim-server" style="text-align:left;">DataNode 3 <br><small id="hdfs-dn3-log" style="color:var(--text-secondary);">Ready</small></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NFS SIM -->
+            <div class="sim-stage sim-stage-panel" id="stage-nfs" style="display:none;">
+                <h4>NFS: Remote Directory Mounting</h4>
+                <p style="font-size:0.9rem; color:var(--text-secondary); max-width:800px; margin-bottom:1.5rem; text-align:left;">Network File System (NFS) is a classic client/server protocol. Its primary aim is Access Transparency. A client can "mount" a directory that physically lives on a remote server directly onto their local file system tree. To end-users, the remote files behave exactly like local files. Under the hood, the OS intercepts file operations and translates them into Remote Procedure Calls (RPC) sent over the network.</p>
+                <button class="btn-primary" id="btn-nfs-mount" style="margin-bottom:1rem; font-size:0.8rem; padding:0.4rem 1rem;">Run `mount -t nfs`</button>
+                <div style="display:flex; gap:2rem; width:100%; justify-content:space-around; align-items:center; flex-wrap:wrap;">
+                    <div style="text-align:left; background:var(--bg-dark); padding:1rem; border-radius:8px; border:1px solid var(--text-secondary); font-family:'JetBrains Mono'; font-size:0.85rem; min-width:200px;">
+                        <span style="color:var(--text-secondary)">Local OS Tree</span><br>
+                        / <br>
+                        ├─ home/ <br>
+                        ├─ var/ <br>
+                        └─ mnt/ <br>
+                        &nbsp;&nbsp;&nbsp;└─ <span id="nfs-mount-point" style="color:var(--text-secondary); transition:0.3s;">remote_data (empty)</span>
+                    </div>
+                    <div id="nfs-link" style="color:var(--accent); font-weight:bold; font-size:2rem; opacity:0; transition:opacity 0.3s;">
+                        ← mapped →
+                    </div>
+                    <div style="text-align:left; background:var(--card-bg); padding:1rem; border-radius:8px; border:1px dashed var(--accent); font-family:'JetBrains Mono'; font-size:0.85rem; min-width:200px;">
+                        <span style="color:var(--accent)">192.168.1.50 (Server)</span><br>
+                        /exports/ <br>
+                        ├─ db_backups/ <br>
+                        └─ shared_vids/ 
+                    </div>
+                </div>
+            </div>
+            
+            <!-- S3 SIM -->
+            <div class="sim-stage sim-stage-panel" id="stage-s3" style="display:none;">
+                <h4>Amazon S3: Flat Object Storage</h4>
+                <p style="font-size:0.9rem; color:var(--text-secondary); max-width:800px; margin-bottom:1.5rem; text-align:left;">Unlike HDFS or NFS, S3 is an Object Store, not a traditional file system. There are no actual directories or hierarchical file trees at the physical storage layer. Data is stored as individual "Objects" inside a massive, flat "Bucket". Each object is retrieved via a unique Key. The folders you see in S3 are simply an illusion created by UIs using the `/` character in the key name. This allows infinite horizontal scalability.</p>
+                <div style="display:flex; gap:0.5rem; justify-content:center; align-items:center; margin-bottom:1rem;">
+                    <input type="text" id="s3-input" value="user_docs/report.pdf" style="padding:0.5rem; background:var(--bg-dark); border:1px solid var(--text-secondary); color:#fff; border-radius:4px; font-family:'JetBrains Mono'; width:250px;">
+                    <button class="btn-primary" id="btn-s3-upload" style="font-size:0.8rem; padding:0.5rem 1rem;">PUT Object</button>
+                </div>
+                <div style="width:100%; background:var(--bg-dark); border:1px solid var(--text-secondary); padding:1.5rem; border-radius:8px; min-height:150px; text-align:left;">
+                    <h5 style="color:var(--text-secondary); margin-bottom:1rem; font-size:1rem;">S3 Bucket: <span style="color:#fff; border-bottom:1px solid var(--accent);">global-assets-99</span></h5>
+                    <div id="s3-bucket-contents" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:1rem; font-family:'JetBrains Mono'; font-size:0.75rem;">
+                        <!-- objects go here -->
+                        <div style="background:rgba(255,255,255,0.05); padding:0.8rem; border-radius:4px; border-left:3px solid var(--accent);">Key: config.json<br><small style="color:var(--text-secondary);">Size: 2KB</small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Distributed Systems Interactive Guide.</p>
+        <p style="margin-top:0.5rem; color:var(--text-secondary); font-size:0.9rem;">Created by Abedan Biswal and Atharv Ghorpade</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
