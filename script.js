@@ -194,7 +194,91 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ----------------------------------------------------
-    // SIMULATION 4: Real-World DFS Architecture Simulators
+    // SIMULATION 5: Consistent Hashing Ring
+    // ----------------------------------------------------
+    const addNodeBtn = document.getElementById('hash-add-node-btn');
+    const addDataBtn = document.getElementById('hash-add-data-btn');
+    const resetRingBtn = document.getElementById('hash-reset-btn');
+    const hashRing = document.getElementById('hash-ring');
+    const hashLog = document.getElementById('hash-log');
+
+    let ringNodes = [];
+    let ringData = [];
+
+    function hUpdateRingDOM() {
+        if(!hashRing) return;
+        hashRing.innerHTML = '';
+        ringNodes.sort((a,b) => a.angle - b.angle);
+
+        // Render nodes
+        ringNodes.forEach((node) => {
+            const el = document.createElement('div');
+            el.className = 'sim-server';
+            el.style.position = 'absolute';
+            el.style.width = '24px';
+            el.style.height = '24px';
+            el.style.borderRadius = '50%';
+            el.style.padding = '0';
+            el.style.margin = '0';
+            el.style.background = `hsl(${Math.floor(node.angle)}, 80%, 50%)`;
+            el.style.border = '2px solid #fff';
+            el.style.boxShadow = `0 0 15px hsl(${Math.floor(node.angle)}, 80%, 50%)`;
+            
+            const rad = (node.angle - 90) * (Math.PI / 180);
+            const x = 125 + 125 * Math.cos(rad) - 12; // Radius 125, box 250
+            const y = 125 + 125 * Math.sin(rad) - 12;
+            
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            hashRing.appendChild(el);
+        });
+
+        // Render data 
+        ringData.forEach(data => {
+            const el = document.createElement('div');
+            el.style.position = 'absolute';
+            el.style.width = '12px';
+            el.style.height = '12px';
+            el.style.borderRadius = '3px';
+            el.style.background = '#fff';
+            
+            let assigned = ringNodes.find(n => n.angle >= data.angle);
+            if (!assigned && ringNodes.length > 0) assigned = ringNodes[0]; 
+            
+            if (assigned) {
+                el.style.background = `hsl(${Math.floor(assigned.angle)}, 80%, 50%)`;
+            }
+
+            const rad = (data.angle - 90) * (Math.PI / 180);
+            const x = 125 + 100 * Math.cos(rad) - 6; 
+            const y = 125 + 100 * Math.sin(rad) - 6;
+            
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            hashRing.appendChild(el);
+        });
+        
+        if(hashLog) hashLog.textContent = `Active Ring Topology: ${ringNodes.length} Nodes mapping ${ringData.length} Data Blocks.`;
+    }
+
+    if (addNodeBtn) {
+        addNodeBtn.addEventListener('click', () => {
+            ringNodes.push({ angle: Math.floor(Math.random() * 360) });
+            hUpdateRingDOM();
+        });
+        addDataBtn.addEventListener('click', () => {
+            ringData.push({ angle: Math.floor(Math.random() * 360) });
+            hUpdateRingDOM();
+        });
+        resetRingBtn.addEventListener('click', () => {
+            ringNodes = [];
+            ringData = [];
+            hUpdateRingDOM();
+        });
+    }
+
+    // ----------------------------------------------------
+    // SIMULATION 6: Real-World DFS Architecture Simulators
     // ----------------------------------------------------
     const tabBtns = document.querySelectorAll('.sim-tab-btn');
     const stagePanels = document.querySelectorAll('.sim-stage-panel');

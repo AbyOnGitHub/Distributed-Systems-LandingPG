@@ -416,6 +416,30 @@ footer {
     80%, 100% { d: path("M150 10 L72 40"); opacity: 0; } 
 }
 
+/* Implementation Techniques SVG Animations */
+.shard { transform-origin: 100px 50px; animation: shard-expand 4s infinite alternate; }
+@keyframes shard-expand {
+    0%, 20% { transform: scale(1); opacity:1;}
+    80%, 100% { transform: scale(1.15); opacity:0.8;}
+}
+
+.consensus-follower { animation: sync-follow 4s infinite; }
+@keyframes sync-follow {
+    0%, 40% { stroke: var(--text-secondary); filter: none; }
+    50%, 100% { stroke: var(--success); filter: drop-shadow(0 0 5px var(--success)); }
+}
+
+.glow-node { animation: sys-glow 2s infinite alternate; }
+
+.heartbeat { stroke-dasharray: 250; stroke-dashoffset: 250; animation: hb 3s linear infinite; }
+@keyframes hb { 0% { stroke-dashoffset: 250; } 100% { stroke-dashoffset: -250; } }
+
+.hash-item { transform-origin: 100px 50px; }
+.h1 { animation: hash-move1 4s infinite alternate; }
+.h2 { animation: hash-move2 4s infinite alternate; }
+@keyframes hash-move1 { 0% { transform: rotate(0deg); } 100% { transform: rotate(25deg); fill: var(--success); } } 
+@keyframes hash-move2 { 0% { transform: rotate(0deg); } 100% { transform: rotate(-25deg); fill: var(--error); } }
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .hero {
