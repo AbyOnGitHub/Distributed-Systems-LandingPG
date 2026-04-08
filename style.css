@@ -416,6 +416,48 @@ footer {
     80%, 100% { d: path("M150 10 L72 40"); opacity: 0; } 
 }
 
+/* Naming Schema Animations */
+.tree-path-active-1 { stroke-dasharray: 50; animation: walk-tree-1 4s infinite; }
+@keyframes walk-tree-1 { 
+    0%, 10% { stroke-dashoffset: 50; } 
+    30%, 100% { stroke-dashoffset: 0; } 
+}
+.tree-node-1 { animation: glow-tree-1 4s infinite; }
+@keyframes glow-tree-1 {
+    0%, 25% { stroke: var(--text-secondary); }
+    30%, 100% { stroke: var(--accent); }
+}
+
+.tree-path-active-2 { stroke-dasharray: 40; animation: walk-tree-2 4s infinite; }
+@keyframes walk-tree-2 { 
+    0%, 35% { stroke-dashoffset: 40; } 
+    55%, 100% { stroke-dashoffset: 0; } 
+}
+
+.target-leaf { animation: leaf-hit 4s infinite; }
+@keyframes leaf-hit {
+    0%, 55% { fill: var(--bg-dark); stroke: var(--text-secondary); }
+    60%, 100% { fill: var(--accent); stroke: var(--accent); filter: drop-shadow(0 0 5px var(--accent)); }
+}
+.target-leaf-text { animation: leaf-hit-txt 4s infinite; }
+@keyframes leaf-hit-txt {
+    0%, 55% { fill: #fff; }
+    60%, 100% { fill: #000; }
+}
+
+.search-beam-success { stroke-dasharray: 40; animation: search-hit 3s infinite; }
+@keyframes search-hit {
+    0%, 20% { stroke-dashoffset: -40; opacity:0;}
+    25%, 35% { stroke-dashoffset: 0; opacity:1;}
+    60%, 100% { stroke-dashoffset: 0; opacity:0;}
+}
+
+.attr-match { animation: match-glow 3s infinite; }
+@keyframes match-glow {
+    0%, 30% { fill: var(--bg-dark); stroke: var(--text-secondary); }
+    35%, 100% { fill: var(--success); filter: drop-shadow(0 0 8px var(--success)); }
+}
+
 /* Implementation Techniques SVG Animations */
 .shard { transform-origin: 100px 50px; animation: shard-expand 4s infinite alternate; }
 @keyframes shard-expand {
