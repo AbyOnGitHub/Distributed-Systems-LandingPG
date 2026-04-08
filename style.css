@@ -388,6 +388,34 @@ footer {
 @keyframes bus { 0% { cx: 40; } 100% { cx: 260; } }
 @keyframes flow { to { stroke-dashoffset: -20; } }
 
+/* Transparency SVG Animations */
+.opacity-pulse { animation: op-pulse 2s infinite alternate; }
+@keyframes op-pulse { 0% { opacity: 0.3; } 100% { opacity: 1; filter: drop-shadow(0 0 5px var(--accent)); } }
+
+.fail-node-fast { animation: fail-fast 4s infinite; }
+.recover-node { animation: rec-fast 4s infinite; }
+@keyframes fail-fast { 0%, 40% { fill: var(--success); } 45%, 100% { fill: var(--error); opacity: 0.5; } }
+@keyframes rec-fast { 0%, 40% { fill: var(--bg-dark); } 45%, 100% { fill: var(--success); stroke: var(--success); filter:drop-shadow(0 0 5px var(--success)); } }
+
+.fail-line { animation: fail-route 4s infinite; }
+.recovery-line { animation: rec-route 4s infinite; opacity: 0; }
+@keyframes fail-route { 0%, 40% { opacity: 1; stroke-dashoffset: -20; } 45%, 100% { opacity: 0; } }
+@keyframes rec-route { 0%, 40% { opacity: 0; } 45%, 100% { opacity: 1; } }
+
+.migrating-file { animation: migrate 4s infinite; }
+@keyframes migrate { 
+    0%, 20% { transform: translateX(0px); opacity: 1; } 
+    40%, 60% { transform: translateX(160px); opacity: 1; } 
+    80%, 100% { transform: translateX(0px); opacity: 0; } 
+}
+
+.tracking-beam { animation: track-beam 4s infinite; }
+@keyframes track-beam { 
+    0%, 20% { d: path("M150 10 L72 40"); opacity: 1; } 
+    40%, 60% { d: path("M150 10 L232 40"); opacity: 1; } 
+    80%, 100% { d: path("M150 10 L72 40"); opacity: 0; } 
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .hero {

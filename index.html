@@ -310,14 +310,117 @@
 
             <h4 style="margin-top:3rem;">Transparency</h4>
             <p>Hiding the complexity of distribution from users and applications.</p>
-            <table class="data-table">
-                <tr><th>Type</th><th>Meaning</th></tr>
-                <tr><td>Access Transparency</td><td>Local and remote resources accessed the same way</td></tr>
-                <tr><td>Location Transparency</td><td>You don't need to know where a file physically lives</td></tr>
-                <tr><td>Replication Transparency</td><td>Multiple copies exist, but you see just one</td></tr>
-                <tr><td>Failure Transparency</td><td>System hides crashes and recovers silently</td></tr>
-                <tr><td>Migration Transparency</td><td>Files can move between servers without user knowing</td></tr>
-            </table>
+            <h4 style="margin-top:3rem;">Transparency Types Animations</h4>
+            <p>Hiding the underlying complexity of network distribution from end-users and applications.</p>
+            
+            <div class="grid" style="margin-top: 1.5rem;">
+                
+                <div class="card">
+                    <div class="diagram-box">
+                        <svg viewBox="0 0 200 100" width="100%" height="120">
+                            <!-- Code block -->
+                            <rect x="10" y="30" width="80" height="40" rx="3" fill="var(--bg-dark)" stroke="var(--text-secondary)" stroke-width="2"/>
+                            <text x="50" y="54" fill="var(--success)" font-size="10" font-family="monospace" text-anchor="middle">open("file")</text>
+                            
+                            <!-- Local -->
+                            <rect x="140" y="10" width="40" height="30" rx="3" fill="var(--bg-dark)" stroke="var(--accent)" stroke-width="2"/>
+                            <text x="160" y="29" fill="var(--text-secondary)" font-size="9" font-family="monospace" text-anchor="middle">Local</text>
+                            
+                            <!-- Remote -->
+                            <rect x="140" y="60" width="40" height="30" rx="3" fill="var(--bg-dark)" stroke="var(--accent)" stroke-dasharray="4" stroke-width="2"/>
+                            <text x="160" y="79" fill="var(--text-secondary)" font-size="9" font-family="monospace" text-anchor="middle">Cloud</text>
+                            
+                            <!-- Identical paths -->
+                            <path d="M90 50 Q115 25 140 25" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4" class="diag-line l1"/>
+                            <path d="M90 50 Q115 75 140 75" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4" class="diag-line l2"/>
+                        </svg>
+                    </div>
+                    <h3>Access Transparency</h3>
+                    <p>Local and remote resources are accessed via the exact same operations and UI commands.</p>
+                </div>
+
+                <div class="card">
+                    <div class="diagram-box">
+                        <svg viewBox="0 0 200 100" width="100%" height="120">
+                            <!-- Logical path -->
+                            <rect x="10" y="40" width="70" height="20" fill="var(--bg-dark)" stroke="var(--text-primary)"/>
+                            <text x="45" y="53" fill="var(--text-primary)" font-size="8" font-family="monospace" text-anchor="middle">/path/docs</text>
+                            
+                            <!-- Directory Mapper -->
+                            <polygon points="100,50 120,40 120,60" fill="var(--accent)"/>
+                            
+                            <!-- Hidden physical locations -->
+                            <circle cx="170" cy="20" r="10" fill="var(--text-secondary)"/>
+                            <circle cx="180" cy="50" r="10" fill="var(--text-secondary)"/>
+                            <circle cx="160" cy="80" r="10" fill="var(--text-secondary)"/>
+                            
+                            <path d="M80 50 L100 50" fill="none" stroke="var(--text-primary)" stroke-width="2"/>
+                            <path d="M120 50 C 140 50, 150 20, 160 20" fill="none" class="diag-line l1" stroke="var(--text-secondary)" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Location Transparency</h3>
+                    <p>End-users do not need to know the physical IP or hardware location to fetch a specific resource.</p>
+                </div>
+
+                <div class="card">
+                    <div class="diagram-box">
+                        <svg viewBox="0 0 200 100" width="100%" height="120">
+                            <!-- Client View -->
+                            <rect x="20" y="10" width="160" height="80" rx="4" fill="none" stroke="var(--accent)" stroke-dasharray="5" stroke-width="2" class="opacity-pulse"/>
+                            <text x="100" y="25" fill="var(--accent)" font-size="10" font-family="monospace" text-anchor="middle">Single Logical File</text>
+                            
+                            <!-- Physical Replicas -->
+                            <rect x="40" y="40" width="30" height="40" rx="2" fill="var(--bg-dark)" stroke="var(--success)"/>
+                            <rect x="85" y="40" width="30" height="40" rx="2" fill="var(--bg-dark)" stroke="var(--success)"/>
+                            <rect x="130" y="40" width="30" height="40" rx="2" fill="var(--bg-dark)" stroke="var(--success)"/>
+                            <text x="55" y="65" fill="var(--text-primary)" font-size="10" text-anchor="middle">R1</text>
+                            <text x="100" y="65" fill="var(--text-primary)" font-size="10" text-anchor="middle">R2</text>
+                            <text x="145" y="65" fill="var(--text-primary)" font-size="10" text-anchor="middle">R3</text>
+                        </svg>
+                    </div>
+                    <h3>Replication Transparency</h3>
+                    <p>Multiple copies exist on the backend for speed/safety, but the client only sees a single virtual entity.</p>
+                </div>
+
+                <div class="card">
+                    <div class="diagram-box">
+                        <svg viewBox="0 0 200 100" width="100%" height="120">
+                            <!-- Nodes -->
+                            <circle cx="50" cy="50" r="15" fill="var(--success)" class="fail-node-fast"/>
+                            <circle cx="150" cy="50" r="15" fill="var(--bg-dark)" stroke="var(--text-secondary)" stroke-width="2" class="recover-node"/>
+                            
+                            <!-- Sync / Reroute -->
+                            <path d="M50 35 Q100 0 150 35" fill="none" stroke="var(--error)" stroke-width="2" stroke-dasharray="4" class="fail-line"/>
+                            <path d="M50 65 Q100 100 150 65" fill="none" stroke="var(--success)" stroke-width="2" stroke-dasharray="4" class="diag-line recovery-line"/>
+                        </svg>
+                    </div>
+                    <h3>Failure Transparency</h3>
+                    <p>System acts as a self-healing mechanism, intelligently masking crashes and switching servers.</p>
+                </div>
+
+                <div class="card" style="grid-column: 1 / -1;">
+                    <div class="diagram-box" style="justify-content:center;">
+                        <svg viewBox="0 0 300 100" width="100%" height="120">
+                            <rect x="40" y="30" width="60" height="40" rx="4" fill="var(--bg-dark)" stroke="var(--text-secondary)" stroke-width="2"/>
+                            <text x="70" y="54" fill="var(--text-secondary)" font-size="10" font-family="monospace" text-anchor="middle">Server A</text>
+                            
+                            <rect x="200" y="30" width="60" height="40" rx="4" fill="var(--bg-dark)" stroke="var(--text-secondary)" stroke-width="2"/>
+                            <text x="230" y="54" fill="var(--text-secondary)" font-size="10" font-family="monospace" text-anchor="middle">Server B</text>
+
+                            <!-- Moving file -->
+                            <rect x="65" y="40" width="15" height="20" fill="var(--accent)" class="migrating-file"/>
+                            
+                            <!-- Static client connection -->
+                            <path d="M150 10 L72 40" stroke="var(--accent)" stroke-width="2" fill="none" class="tracking-beam"/>
+                            
+                            <!-- Client -->
+                            <circle cx="150" cy="10" r="8" fill="var(--success)"/>
+                        </svg>
+                    </div>
+                    <h3>Migration Transparency</h3>
+                    <p>Resources can dynamically migrate between servers globally to balance load without severing the user connection.</p>
+                </div>
+            </div>
 
             <!-- Interactive Simulation: Location Transparency -->
             <div class="simulation-container" style="margin-top:2.5rem;">
