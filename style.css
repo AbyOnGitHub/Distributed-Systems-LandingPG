@@ -116,33 +116,30 @@ h3, h4 {
     height: 400px;
 }
 
-.node {
-    width: 20px;
-    height: 20px;
-    background: var(--accent);
-    border-radius: 50%;
-    position: absolute;
-    box-shadow: 0 0 15px var(--accent);
-    animation: pulse 2s infinite alternate;
+.sys-node {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+    animation: sys-glow 3s infinite alternate;
 }
-
-.node-1 { top: 10%; left: 40%; }
-.node-2 { top: 50%; left: 80%; }
-.node-3 { top: 80%; left: 30%; }
-.node-4 { top: 40%; left: 10%; }
-
-.connections {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
+@keyframes sys-glow {
+    to { filter: drop-shadow(0 0 8px var(--accent)); }
 }
-
-.line {
-    stroke: rgba(56, 189, 248, 0.3);
-    stroke-width: 2;
-    stroke-dasharray: 5;
-    animation: dash 20s linear infinite;
+.sys-packet {
+    offset-path: path("M50 200 L150 100 M250 100 L350 100");
+    animation: pkt-move 4s linear infinite;
+}
+.p2 { offset-path: path("M50 200 L150 200 M250 200 L350 300"); animation-delay: 1.2s; }
+.p3 { offset-path: path("M50 200 L150 300 M250 300 L350 200"); animation-delay: 2.5s; }
+.p4 { offset-path: path("M350 200 L250 200 M150 100 L50 200"); animation-delay: 0.8s; }
+.p5 { offset-path: path("M350 100 L250 100 M150 300 L50 200"); animation-delay: 3s; }
+@keyframes pkt-move {
+    0% { offset-distance: 0%; opacity: 0; }
+    5% { opacity: 1; }
+    45% { opacity: 1; }
+    46% { opacity: 0; } /* Jump the gap through the app node implicitly */
+    54% { opacity: 0; }
+    55% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
 }
 
 /* Sections */

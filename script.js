@@ -1,42 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ----------------------------------------------------
-    // BACKGROUND NETWORK ANIMATION
-    // ----------------------------------------------------
-    const nodes = document.querySelectorAll('.hero-graphic .node');
-    const svg = document.querySelector('.hero-graphic .connections');
-    
-    function drawConnections() {
-        if(!svg) return;
-        svg.innerHTML = '';
-        const graphic = document.querySelector('.hero-graphic');
-        const graphicRect = graphic.getBoundingClientRect();
-        
-        for(let i = 0; i < nodes.length; i++) {
-            for(let j = i + 1; j < nodes.length; j++) {
-                const node1 = nodes[i];
-                const node2 = nodes[j];
-                
-                const n1Rect = node1.getBoundingClientRect();
-                const n2Rect = node2.getBoundingClientRect();
-                
-                const px1 = n1Rect.left - graphicRect.left + (n1Rect.width / 2);
-                const py1 = n1Rect.top - graphicRect.top + (n1Rect.height / 2);
-                const px2 = n2Rect.left - graphicRect.left + (n2Rect.width / 2);
-                const py2 = n2Rect.top - graphicRect.top + (n2Rect.height / 2);
-                
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', px1);
-                line.setAttribute('y1', py1);
-                line.setAttribute('x2', px2);
-                line.setAttribute('y2', py2);
-                line.classList.add('line');
-                svg.appendChild(line);
-            }
-        }
-    }
-    drawConnections();
-    window.addEventListener('resize', drawConnections);
-    
+
     // ----------------------------------------------------
     // SCROLL REVEAL (Intersection Observer)
     // ----------------------------------------------------
